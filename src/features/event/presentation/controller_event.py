@@ -6,6 +6,7 @@ from src.features.event.application.uses_cases.register_user_to_event import Reg
 from src.features.event.dependency import (
     get_create_event_use_case_dependency,
 )
+from src.utils.jwt_handler import get_current_user_id  # Importar la función de autenticación
 
 router = APIRouter(prefix="/event/v1", tags=["Events"])
 
@@ -18,7 +19,8 @@ async def create_event(
     origen_carrera: Optional[str] = Form(None),
     km: Optional[float] = Form(None),
     file: Optional[UploadFile] = File(None),
-    use_case: CreateEventUseCase = Depends(get_create_event_use_case_dependency)
+    use_case: CreateEventUseCase = Depends(get_create_event_use_case_dependency),
+    current_user_id: int = Depends(get_current_user_id)  # Extraer el ID del usuario autenticado
 ):
     """Crear un nuevo evento"""
     try:
@@ -27,11 +29,10 @@ async def create_event(
             descripcion=descripcion,
             cantidad_participantes_dis=cantidad_participantes_dis,
             origen_carrera=origen_carrera,
-            km=km
+            km=km,
+            usuario_id=current_user_id  # Asignar el ID del usuario autenticado
         )
         result = use_case.execute(event_data, file)
         return result
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
-
-
