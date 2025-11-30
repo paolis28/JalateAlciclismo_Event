@@ -9,4 +9,4 @@ class Event(BaseModel):
     origen_carrera: Optional[str] = None
     km: Optional[float] = None
     url_banner: Optional[str] = None
-    usuario_id: Optional[int] = None
+    id_usuario: Optional[int] = None

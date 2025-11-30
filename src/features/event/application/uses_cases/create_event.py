@@ -21,3 +21,4 @@ class CreateEventUseCase:
             url_banner = upload_result.get("secure_url")
         event_data.url_banner = url_banner
         return self.repo.create_event(event_data)
+    
