@@ -9,8 +9,8 @@ class EventRepository(EventRepositoryPort):
     def create_event(self, event_data: Event):
         """Crear un nuevo evento"""
         query = text("""
-            INSERT INTO evento (nombre, descripcion, cantidad_participantes_dis, origen_carrera, km, url_banner, usuario_id)
-            VALUES (:nombre, :descripcion, :cantidad_participantes_dis, :origen_carrera, :km, :url_banner, :usuario_id)
+            INSERT INTO evento (nombre, descripcion, cantidad_participantes_dis, origen_carrera, km, url_banner, id_usuario)
+            VALUES (:nombre, :descripcion, :cantidad_participantes_dis, :origen_carrera, :km, :url_banner, :id_usuario)
         """)
         with engine.connect() as conn:
             result = conn.execute(query, event_data.dict(exclude={'id_evento'}))
