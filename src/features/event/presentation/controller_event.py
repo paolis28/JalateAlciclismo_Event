@@ -30,7 +30,7 @@ async def create_event(
             cantidad_participantes_dis=cantidad_participantes_dis,
             origen_carrera=origen_carrera,
             km=km,
-            usuario_id=current_user_id  # Asignar el ID del usuario autenticado
+            id_usuario=current_user_id  
         )
         result = use_case.execute(event_data, file)
         return result
