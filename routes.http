@@ -1,7 +1,6 @@
 ########## REGISTRAR USUARIO ##########
 POST http://127.0.0.1:8000/auth/register HTTP/1.1
 Content-Type: application/json
-
 {
     "nombre": "paolis",
     "apellido_paterno": "Mayor",
@@ -9,7 +8,6 @@ Content-Type: application/json
     "correo":"paolis@gmail.com",
     "contrasena":"123456"
 }
-
 
 ########## INICIAR SESION USUARIO ##########
 POST http://127.0.0.1:8000/auth/login HTTP/1.1
@@ -19,8 +17,33 @@ Content-Type: application/json
     "contrasena":"123123"
 }
 
+POST http://127.0.0.1:8000/auth/register HTTP/1.1
+Content-Type: application/json
+{
+    "nombre": "paolis",
+    "apellido_paterno": "Mayor",
+    "apellido_materno": "Aguir",
+    "correo":"paolis@gmail.com",
+    "contrasena":"123456"
+}
+
 ########## CREAR EVENTO ##########
-POST http://127.0.0.1:8000/event/create
+POST http://127.0.0.1:8000/event/create HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
+{
+  "id_usuario": "user_12345",
+  "nombre": "Carrera Anual de Montaña",
+  "descripcion": "Evento ciclista de resistencia en montaña con ruta técnica.",
+  "cantidad_participantes": 100,
+  "origen_carrera": "Parque Nacional Nevado",
+  "destino_fin_carrera": "Pueblo La Esperanza",
+  "km": 42.7,
+  "url_banner": "",
+  "fecha_evento": "2025-03-15",
+  "hora_evento": "08:30:00",
+  "estatus": 1
+}
 
 
 ########## CONSEGUIR TODOS LOS EVENTOS ##########

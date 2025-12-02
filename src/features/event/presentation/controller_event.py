@@ -22,7 +22,7 @@ async def create_event(
     fecha_evento: Optional[str] = Form(None),  # Recibimos como string y pydantic/db lo manejarán, o convertimos si es necesario
     hora_evento: Optional[str] = Form(None),
     estatus: Optional[int] = Form(None),
-    file: Optional[UploadFile] = File(None),
+    url_banner: Optional[str] = Form(None),
     use_case: CreateEventUseCase = Depends(get_create_event_use_case_dependency),
     current_user_id: int = Depends(get_current_user_id)  # Extraer el ID del usuario autenticado
 ):

@@ -34,10 +34,11 @@ def get_current_user_id(authorization: Optional[str] = Header(None)) -> int:
     
     # Extraer el ID del usuario del payload
     # Ajusta el nombre del campo según cómo lo guardas en tu microservicio de auth
-    user_id = payload.get("user_id") or payload.get("id_usuario") or payload.get("sub") or payload.get("id")
+    user_id = payload.get("user_id") or payload.get("id_usuario") or payload.get("id")
+    user_id = int(user_id)
     print("Payload del token:", payload)
 
     if not user_id:
         raise HTTPException(status_code=401, detail="Token no contiene ID de usuario")
     
-    return int(user_id)
+    return user_id

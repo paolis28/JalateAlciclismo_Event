@@ -13,7 +13,7 @@ class CreateEventUseCase:
         self.repo = event_repository
 
     def execute(self, event_data, file=None):
-        if event_data.url_banner == "":
+        if event_data.url_banner == "" or event_data.url_banner == None:
             event_data.url_banner = "https://www.escapadarural.com/blog/wp-content/uploads/AdobeStock_346468147-scaled.jpeg" #seria el url del banner por defecto
         # if file:
         #     upload_result = cloudinary.uploader.upload(
