@@ -15,9 +15,13 @@ router = APIRouter(prefix="/event/v1", tags=["Events"])
 async def create_event(
     nombre: str = Form(...),
     descripcion: Optional[str] = Form(None),
-    cantidad_participantes_dis: int = Form(0),
+    cantidad_participantes: int = Form(0),
     origen_carrera: Optional[str] = Form(None),
+    destino_fin_carrera: Optional[str] = Form(None),
     km: Optional[float] = Form(None),
+    fecha_evento: Optional[str] = Form(None),  # Recibimos como string y pydantic/db lo manejarán, o convertimos si es necesario
+    hora_evento: Optional[str] = Form(None),
+    estatus: Optional[int] = Form(None),
     file: Optional[UploadFile] = File(None),
     use_case: CreateEventUseCase = Depends(get_create_event_use_case_dependency),
     current_user_id: int = Depends(get_current_user_id)  # Extraer el ID del usuario autenticado
@@ -27,9 +31,14 @@ async def create_event(
         event_data = Event(
             nombre=nombre,
             descripcion=descripcion,
-            cantidad_participantes_dis=cantidad_participantes_dis,
+            cantidad_participantes=cantidad_participantes,
             origen_carrera=origen_carrera,
+            destino_fin_carrera=destino_fin_carrera,
             km=km,
+            url_banner=None, # Se llena en el use case si hay archivo
+            fecha_evento=fecha_evento,
+            hora_evento=hora_evento,
+            estatus=estatus,
             id_usuario=current_user_id  
         )
         result = use_case.execute(event_data, file)
