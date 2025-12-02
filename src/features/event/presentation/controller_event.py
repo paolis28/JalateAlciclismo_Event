@@ -35,13 +35,13 @@ async def create_event(
             origen_carrera=origen_carrera,
             destino_fin_carrera=destino_fin_carrera,
             km=km,
-            url_banner=None, # Se llena en el use case si hay archivo
+            url_banner=url_banner, # Se llena en el use case si hay archivo
             fecha_evento=fecha_evento,
             hora_evento=hora_evento,
             estatus=estatus,
             id_usuario=current_user_id  
         )
-        result = use_case.execute(event_data, file)
+        result = use_case.execute(event_data)
         return result
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))

@@ -12,7 +12,7 @@ class CreateEventUseCase:
     def __init__(self, event_repository: EventRepositoryPort):
         self.repo = event_repository
 
-    def execute(self, event_data, file=None):
+    def execute(self, event_data):
         if event_data.url_banner == "" or event_data.url_banner == None:
             event_data.url_banner = "https://www.escapadarural.com/blog/wp-content/uploads/AdobeStock_346468147-scaled.jpeg" #seria el url del banner por defecto
         # if file:
