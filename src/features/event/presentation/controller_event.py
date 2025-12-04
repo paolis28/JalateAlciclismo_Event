@@ -9,7 +9,8 @@ from src.features.event.dependency import (
     get_get_events_by_user_use_case_dependency,
 )
 from src.features.event.application.uses_cases.get_events_by_user import GetEventsByUserUseCase
-from src.utils.jwt_handler import get_current_user_id  # Importar la función de autenticación
+from src.utils.jwt_handler import get_current_user_id
+from src.services.cloudinary_service import CloudinaryService
 
 router = APIRouter(prefix="/event/v1", tags=["Events"])
 
@@ -22,13 +23,13 @@ async def create_event(
     origen_carrera: Optional[str] = Form(None),
     destino_fin_carrera: Optional[str] = Form(None),
     km: Optional[float] = Form(None),
-    fecha_evento: Optional[str] = Form(None),  # Recibimos como string y pydantic/db lo manejarán, o convertimos si es necesario
+    fecha_evento: Optional[str] = Form(None),
     hora_evento: Optional[str] = Form(None),
     estatus: Optional[int] = Form(None),
-    url_banner: Optional[str] = Form(None),
+    file_banner: Optional[UploadFile] = File(None),
     privado: Optional[int] = Form(None),
     use_case: CreateEventUseCase = Depends(get_create_event_use_case_dependency),
-    current_user_id: int = Depends(get_current_user_id)  # Extraer el ID del usuario autenticado
+    current_user_id: int = Depends(get_current_user_id)
 ):
     """Crear un nuevo evento"""
     try:
@@ -39,13 +40,21 @@ async def create_event(
             origen_carrera=origen_carrera,
             destino_fin_carrera=destino_fin_carrera,
             km=km,
-            url_banner=url_banner, # Se llena en el use case si hay archivo
+            url_banner="https://www.escapadarural.com/blog/wp-content/uploads/AdobeStock_346468147-scaled.jpeg",
             fecha_evento=fecha_evento,
             hora_evento=hora_evento,
             estatus=estatus,
             id_usuario=current_user_id,
             privado=privado
         )
+        
+        if file_banner:
+            try:
+                cloudinary_service = CloudinaryService()
+                event_data.url_banner = cloudinary_service.upload_image(file_banner)
+            except Exception as e:
+                raise HTTPException(status_code=500, detail=f"Error al tratar de subir el banner: {e}")
+        
         result = use_case.execute(event_data)
         return result
     except Exception as e:
@@ -68,6 +77,7 @@ async def register_user_to_event(
         raise e
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
 
 @router.get("/by_user", status_code=200)
 async def get_events_by_user(

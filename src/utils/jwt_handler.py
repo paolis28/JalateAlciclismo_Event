@@ -1,13 +1,15 @@
-"""
-Utilidad para manejar tokens JWT
-"""
+
 import jwt
 from fastapi import HTTPException, Header
 from typing import Optional
 
-# Cambia esta clave por la misma que usa tu microservicio de auth
-SECRET_KEY = "123456789"  # Debe ser la misma que en tu microservicio de auth
-ALGORITHM = "HS256"
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
+SECRET_KEY = os.getenv("SECRET_KEY")
+ALGORITHM = os.getenv("ALGORITHM", "HS256") # Default to HS256 if not set
 
 
 def decode_token(token: str) -> dict:
