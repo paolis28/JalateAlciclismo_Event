@@ -53,19 +53,19 @@ CREATE TABLE ruta (
 );
 
 -- ==========================
--- TABLA: USUARIO_EVENTO
+-- TABLA: REGISTER_USER_TO_EVENT
 -- (relación N:N entre usuarios y eventos)
 -- ==========================
-CREATE TABLE usuario_evento (
+CREATE TABLE register_user_to_event (
     id_usuario_evento INT AUTO_INCREMENT PRIMARY KEY,
     id_usuario INT NOT NULL,
     id_evento INT NOT NULL,
     fecha_registro DATETIME DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario)
-        ON DELETE CASCADE ON UPDATE CASCADE,
-    FOREIGN KEY (id_evento) REFERENCES evento(id_evento)
-        ON DELETE CASCADE ON UPDATE CASCADE,
-    UNIQUE KEY (id_usuario, id_evento) -- para evitar duplicados
+    -- FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario)
+    --     ON DELETE CASCADE ON UPDATE CASCADE,
+    -- FOREIGN KEY (id_evento) REFERENCES evento(id_evento)
+    --     ON DELETE CASCADE ON UPDATE CASCADE,
+    UNIQUE KEY (id_usuario, id_evento)
 );
 -- ==========================
 -- INSERTS BASE

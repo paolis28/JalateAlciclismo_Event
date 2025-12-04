@@ -32,17 +32,18 @@ POST http://127.0.0.1:8000/event/create HTTP/1.1
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
 {
-  "id_usuario": "user_12345",
+  "id_usuario": 2,
   "nombre": "Carrera Anual de Montaña",
   "descripcion": "Evento ciclista de resistencia en montaña con ruta técnica.",
   "cantidad_participantes": 100,
   "origen_carrera": "Parque Nacional Nevado",
   "destino_fin_carrera": "Pueblo La Esperanza",
-  "km": 42.7,
+  "km": 12.2,
   "url_banner": "",
   "fecha_evento": "2025-03-15",
   "hora_evento": "08:30:00",
-  "estatus": 1
+  "estatus": 1,
+  "privado": 0
 }
 
 
