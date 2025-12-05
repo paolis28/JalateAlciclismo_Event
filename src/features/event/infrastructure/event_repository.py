@@ -72,8 +72,8 @@ class EventRepository(EventRepositoryPort):
                 origen_carrera, destino_fin_carrera, km, url_banner, fecha_evento, 
                 CAST(hora_evento AS CHAR) as hora_evento, estatus, privado
             FROM evento 
-            WHERE fecha_evento < :current_date 
-            OR (fecha_evento = :current_date AND hora_evento < :current_time)
+            WHERE fecha_evento > :current_date 
+            OR (fecha_evento = :current_date AND hora_evento > :current_time)
         """)
         with engine.connect() as conn:
             result = conn.execute(query, {
