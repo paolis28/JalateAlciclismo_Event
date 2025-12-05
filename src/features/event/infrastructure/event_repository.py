@@ -62,3 +62,17 @@ class EventRepository(EventRepositoryPort):
         with engine.connect() as conn:
             result = conn.execute(query, {"id_usuario": id_usuario}).fetchall()
             return [Event(**row._mapping) for row in result]
+
+    def get_active_events(self, current_date: object, current_time: object) -> List[Event]:
+        """Obtener todos los eventos vigentes (fecha >= hoy y hora > actual si es hoy)"""
+        query = text("""
+            SELECT * FROM evento 
+            WHERE fecha_evento > :current_date 
+            OR (fecha_evento = :current_date AND hora_evento > :current_time)
+        """)
+        with engine.connect() as conn:
+            result = conn.execute(query, {
+                "current_date": current_date,
+                "current_time": current_time
+            }).fetchall()
+            return [Event(**row._mapping) for row in result]

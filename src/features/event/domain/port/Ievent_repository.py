@@ -22,3 +22,8 @@ class EventRepositoryPort(ABC):
     def get_events_by_user_id(self, id_usuario: int) -> List[Event]:
         """Obtener todos los eventos de un usuario"""
         pass
+
+    @abstractmethod
+    def get_active_events(self, current_date: object, current_time: object) -> List[Event]:
+        """Obtener todos los eventos vigentes"""
+        pass

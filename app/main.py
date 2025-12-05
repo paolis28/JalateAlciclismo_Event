@@ -7,13 +7,6 @@ from src.features.event.presentation.controller_event import router as event_rou
 
 app = FastAPI()
 
-#Para producción:
-#Cuando vayas a producción, cambia los orígenes permitidos por el dominio real de tu frontend:
-    #allow_origins=[
-    #    "https://tudominio.com",
-    #    "https://www.tudominio.com",
-    #],
-
 # Configuración de CORS
 app.add_middleware(
     CORSMiddleware,
@@ -43,6 +36,3 @@ def test_db_connection():
         print("Error de conexión:", e)
         return {"db_status": "Error", "details": str(e)}
     
-
-#Pasar la instancia de router de las rutas a main, inicializar las apis
-#Lo que se hafce en controlador
