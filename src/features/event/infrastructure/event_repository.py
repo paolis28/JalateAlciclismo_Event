@@ -23,7 +23,7 @@ class EventRepository(EventRepositoryPort):
     def register_user_to_event(self, id_usuario: int, id_evento: int):
         """Registrar un usuario a un evento"""
         query = text("""
-            INSERT INTO register_user_to_event (id_usuario, id_evento)
+            INSERT INTO registered_user_to_event (id_usuario, id_evento)
             VALUES (:id_usuario, :id_evento)
         """)
         try:
@@ -45,16 +45,19 @@ class EventRepository(EventRepositoryPort):
             if result:
                 return Event(**result._mapping)
             return None
-
+   
     def get_events_by_user_id(self, id_usuario: int) -> List[Event]:
         """Obtener todos los eventos de un usuario"""
         query = text("""
             SELECT 
-                id_evento, id_usuario, clave, nombre, descripcion, cantidad_participantes, 
-                origen_carrera, destino_fin_carrera, km, url_banner, fecha_evento, 
-                CAST(hora_evento AS CHAR) as hora_evento, estatus, privado 
-            FROM evento 
-            WHERE id_usuario = :id_usuario
+                e.id_evento, e.id_usuario, e.clave, e.nombre, e.descripcion, e.cantidad_participantes, 
+                e.origen_carrera, e.destino_fin_carrera, e.km, e.url_banner, e.fecha_evento, 
+                CAST(e.hora_evento AS CHAR) as hora_evento, e.estatus, e.privado,
+                COUNT(r.id_usuario) AS registered_users_count
+            FROM evento e
+            LEFT JOIN registered_user_to_event r ON e.id_evento = r.id_evento
+            WHERE e.id_usuario = :id_usuario
+            GROUP BY e.id_evento
         """)
         with engine.connect() as conn:
             result = conn.execute(query, {"id_usuario": id_usuario}).fetchall()

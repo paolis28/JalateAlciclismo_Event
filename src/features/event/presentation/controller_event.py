@@ -2,7 +2,7 @@ from fastapi import APIRouter, HTTPException, UploadFile, File, Form, Depends
 from typing import Optional
 from src.features.event.domain.entities.event import Event
 from src.features.event.application.uses_cases.create_event import CreateEventUseCase
-from src.features.event.application.uses_cases.register_user_to_event import RegisterUserToEventUseCase
+from src.features.event.application.uses_cases.registered_user_to_event import RegisterUserToEventUseCase
 from src.features.event.dependency import (
     get_create_event_use_case_dependency,
     get_register_user_to_event_use_case_dependency,

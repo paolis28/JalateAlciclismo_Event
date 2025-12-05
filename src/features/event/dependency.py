@@ -8,7 +8,7 @@ from src.features.event.application.uses_cases.create_event import CreateEventUs
 
 from src.features.event.application.uses_cases.get_events_by_user import GetEventsByUserUseCase
 
-from src.features.event.application.uses_cases.register_user_to_event import RegisterUserToEventUseCase
+from src.features.event.application.uses_cases.registered_user_to_event import RegisterUserToEventUseCase
 
 
 class EventDependencyContainer:
