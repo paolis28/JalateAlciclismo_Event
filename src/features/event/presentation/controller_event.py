@@ -6,7 +6,7 @@ from src.features.event.application.uses_cases.register_user_to_event import Reg
 from src.features.event.dependency import (
     get_create_event_use_case_dependency,
     get_register_user_to_event_use_case_dependency,
-    get_get_events_by_user_id_use_case_dependency,
+    get_events_by_user_id_use_case_dependency,
 )
 from src.features.event.application.uses_cases.get_events_by_user import GetEventsByUserUseCase
 from src.utils.jwt_handler import get_current_user_id
@@ -83,7 +83,7 @@ async def register_user_to_event(
 
 @router.get("/by_user_id", status_code=200)
 async def get_events_by_user_id(
-    use_case: GetEventsByUserUseCase = Depends(get_get_events_by_user_id_use_case_dependency),
+    use_case: GetEventsByUserUseCase = Depends(get_events_by_user_id_use_case_dependency),
     current_user_id: int = Depends(get_current_user_id)
 ):
     """Obtener todos los eventos de un usuario"""

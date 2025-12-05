@@ -23,3 +23,5 @@ class Event(BaseModel):
     hora_evento: Optional[time] = None
     estatus: Optional[int] = None
     privado: Optional[int] = None
+
+

@@ -48,7 +48,14 @@ class EventRepository(EventRepositoryPort):
 
     def get_events_by_user_id(self, id_usuario: int) -> List[Event]:
         """Obtener todos los eventos de un usuario"""
-        query = text("SELECT * FROM evento WHERE id_usuario = :id_usuario")
+        query = text("""
+            SELECT 
+                id_evento, id_usuario, clave, nombre, descripcion, cantidad_participantes, 
+                origen_carrera, destino_fin_carrera, km, url_banner, fecha_evento, 
+                CAST(hora_evento AS CHAR) as hora_evento, estatus, privado 
+            FROM evento 
+            WHERE id_usuario = :id_usuario
+        """)
         with engine.connect() as conn:
             result = conn.execute(query, {"id_usuario": id_usuario}).fetchall()
             return [Event(**row._mapping) for row in result]

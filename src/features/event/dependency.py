@@ -33,7 +33,7 @@ class EventDependencyContainer:
         """Retorna una instancia del caso de uso de registrar usuario a evento"""
         return RegisterUserToEventUseCase(event_repository=self.get_event_repository())
 
-    def get_get_events_by_user_id_use_case(self) -> GetEventsByUserUseCase:
+    def get_events_by_user_id_use_case(self) -> GetEventsByUserUseCase:
         """Retorna una instancia del caso de uso de obtener eventos por usuario"""
         return GetEventsByUserUseCase(event_repository=self.get_event_repository())
 
@@ -61,8 +61,8 @@ def get_register_user_to_event_use_case_dependency() -> RegisterUserToEventUseCa
     container = get_dependency_container()
     return container.get_register_user_to_event_use_case()
 
-def get_get_events_by_user_id_use_case_dependency() -> GetEventsByUserUseCase:
+def get_events_by_user_id_use_case_dependency() -> GetEventsByUserUseCase:
     """Dependencia para inyectar el caso de uso de obtener eventos por usuario"""
     container = get_dependency_container()
-    return container.get_get_events_by_user_id_use_case()
+    return container.get_events_by_user_id_use_case()
 
