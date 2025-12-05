@@ -7,13 +7,13 @@ from src.features.event.dependency import (
     get_create_event_use_case_dependency,
     get_register_user_to_event_use_case_dependency,
     get_events_by_user_id_use_case_dependency,
-    get_active_events_use_case_dependency,
+    get_activities_events_use_case_dependency,
 )
-)
+
 from src.features.event.application.uses_cases.get_events_by_user import GetEventsByUserUseCase
 from src.utils.jwt_handler import get_current_user_id
 from src.services.cloudinary_service import CloudinaryService
-from src.features.event.application.uses_cases.get_active_events import GetActiveEventsUseCase
+from src.features.event.application.uses_cases.get_activities_events import GetActivitiesEventsUseCase
 from datetime import datetime
 
 
@@ -99,9 +99,9 @@ async def get_events_by_user_id(
         raise HTTPException(status_code=500, detail=str(e))
 
 
-@router.get("/active", status_code=200)
-async def get_active_events(
-    use_case: GetActiveEventsUseCase = Depends(get_active_events_use_case_dependency)
+@router.get("/activities/active", status_code=200)
+async def get_activities_events(
+    use_case: GetActivitiesEventsUseCase = Depends(get_activities_events_use_case_dependency)
 ):
     """Obtener todos los eventos vigentes (fecha >= hoy y hora > actual si es hoy)"""
     try:

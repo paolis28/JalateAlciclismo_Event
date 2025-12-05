@@ -24,6 +24,6 @@ class EventRepositoryPort(ABC):
         pass
 
     @abstractmethod
-    def get_active_events(self, current_date: object, current_time: object) -> List[Event]:
+    def get_activities_events(self, current_date: object, current_time: object) -> List[Event]:
         """Obtener todos los eventos vigentes"""
         pass

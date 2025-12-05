@@ -9,7 +9,7 @@ from src.features.event.application.uses_cases.create_event import CreateEventUs
 from src.features.event.application.uses_cases.get_events_by_user import GetEventsByUserUseCase
 
 from src.features.event.application.uses_cases.registered_user_to_event import RegisterUserToEventUseCase
-from src.features.event.application.uses_cases.get_active_events import GetActiveEventsUseCase
+from src.features.event.application.uses_cases.get_activities_events import GetActivitiesEventsUseCase
 
 
 
@@ -39,9 +39,9 @@ class EventDependencyContainer:
         """Retorna una instancia del caso de uso de obtener eventos por usuario"""
         return GetEventsByUserUseCase(event_repository=self.get_event_repository())
     
-    def get_active_events_use_case(self) -> GetActiveEventsUseCase:
+    def get_activities_events_use_case(self) -> GetActivitiesEventsUseCase:
         """Retorna una instancia del caso de uso de obtener eventos activos"""
-        return GetActiveEventsUseCase(repository=self.get_event_repository())
+        return GetActivitiesEventsUseCase(repository=self.get_event_repository())
 
 
 # Función helper para FastAPI Depends
@@ -67,10 +67,12 @@ def get_register_user_to_event_use_case_dependency() -> RegisterUserToEventUseCa
     container = get_dependency_container()
     return container.get_register_user_to_event_use_case()
 
+def get_events_by_user_id_use_case_dependency() -> GetEventsByUserUseCase:
+    """Dependencia para inyectar el caso de uso de registrar usuario a evento"""
+    container = get_dependency_container()
     return container.get_events_by_user_id_use_case()
 
-def get_active_events_use_case_dependency() -> GetActiveEventsUseCase:
+def get_activities_events_use_case_dependency() -> GetActivitiesEventsUseCase:
     """Dependencia para inyectar el caso de uso de obtener eventos activos"""
     container = get_dependency_container()
-    return container.get_active_events_use_case()
-
+    return container.get_activities_events_use_case()
